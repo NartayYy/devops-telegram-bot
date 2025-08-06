@@ -108,8 +108,8 @@ class DevOpsBot:
 
 Я помогу изучать DevOps. Доступные команды:
 
-/start - Начать работу
-/status - Статус системы  
+/start - Начать работу CI/CD version
+/status - Статус системы
 /stats - Статистика бота
 /docker - Информация о Docker
 /k8s - Информация о Kubernetes
