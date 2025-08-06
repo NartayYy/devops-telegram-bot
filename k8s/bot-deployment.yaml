@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telegram-bot
+  namespace: telegram-bot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: telegram-bot
+  template:
+    metadata:
+      labels:
+        app: telegram-bot
+    spec:
+      containers:
+      - name: bot
+        image: telegram-bot:v1.0
+        imagePullPolicy: Never
+        env:
+        - name: TELEGRAM_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: bot-secrets
+              key: TELEGRAM_TOKEN
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: bot-secrets
+              key: MYSQL_PASSWORD
+        envFrom:
+        - configMapRef:
+            name: bot-config
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "100m"
